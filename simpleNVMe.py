@@ -113,7 +113,12 @@ def is_nvme_device(bdf):
         return base_class == 0x01 and sub_class == 0x08
     except Exception:
         return False
-
+    
+def normalize_bdf(bdf):
+    # if No domain, add 0000:
+    if len(bdf.split(":")) == 2:
+        return "0000:" + bdf
+    return bdf
 
 def main():
     parser = argparse.ArgumentParser(description="Simple NVMe 2.1 register dumper")
@@ -122,6 +127,7 @@ def main():
     args = parser.parse_args()
 
     if args.show:
+        bdf = normalize_bdf(args.show)
         if not is_nvme_device(args.show):
             print(f"Error: {args.show} is not an NVMe device.")
             sys.exit(1)
