@@ -128,12 +128,12 @@ def main():
 
     if args.show:
         bdf = normalize_bdf(args.show)
-        if not is_nvme_device(args.show):
-            print(f"Error: {args.show} is not an NVMe device.")
+        if not is_nvme_device(bdf):
+            print(f"Error: {bdf} is not an NVMe device.")
             sys.exit(1)
-        path = f"/sys/bus/pci/devices/{args.show}/resource0"
+        path = f"/sys/bus/pci/devices/{bdf}/resource0"
         if not os.path.exists(path):
-            print(f"Error: PCI device {args.show} not found.")
+            print(f"Error: PCI device {bdf} not found.")
             sys.exit(1)
         fd = os.open(path, os.O_RDONLY)
         dump_registers_from_fd(fd)
