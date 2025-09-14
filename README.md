@@ -47,7 +47,7 @@ python3 simpleNVMe.py -h
 ### 2. Dump NVMe Controller Registers
 
 ```bash
-python3 simpleNVMe.py -s 0x[BAR]
+python3 simpleNVMe.py -s [BDF]
 ```
 
 輸出範例：
@@ -72,54 +72,6 @@ python3 simpleNVMe.py -s 0x[BAR]
          -- [11:14] [RW] MPS : 0x6
          ...
 ```
-
----
-
-## 🔍 取得 NVMe [BAR] 位址
-
-在使用 `simpleNVMe.py` 前，需要先知道 NVMe Controller 的 **[BAR] (Base Address Register)**。  
-這裡提供兩種方法：  
-
-### 1. 使用 `lspci -x` 直接讀取 offset 0x10  
-
-[BAR0] 會出現在 **PCI Config Space offset 0x10** 的位置。  
-
-範例：  
-
-```bash
-hyam@hyam-virtual-machine:~/simplePCI$ lspci -s [B:D:F] -x
-[B:D:F] Non-Volatile memory controller: VMware Device 07f0
-00: ad 15 f0 07 07 04 10 00 00 02 08 01 00 00 00 00
-10: 04 c0 4f fd 00 00 00 00 01 40 00 00 00 00 00 00
-20: 00 00 00 00 00 00 00 00 00 00 00 00 ad 15 f0 07
-30: 00 00 00 00 40 00 00 00 00 00 00 00 0a 01 00 00
-```
-
-其中 offset **0x10** 的 4 bytes (`04 c0 4f fd`) 組合後得到：  
-
-```
-0xFD4FC004
-```
-
-這就是 **[BAR0] 的位址**。  
-
----
-
-### 2. 使用 [simplePCI 專案](https://github.com/straytale/simplePCI) 輔助工具  
-
-也可以透過 [simplePCI 專案](https://github.com/straytale/simplePCI) 直接解析出 [BAR] 資訊：  
-
-```bash
-python3 simplePCI.py -s [B:D:F] -v | grep -i BAR0
-```
-
-輸出範例：  
-
-```
-0x10   BAR0   0xFD4FC004
-```
-
-同樣可以直接取出 **[BAR0] 位址** 供 `simpleNVMe.py` 使用。  
 
 ---
 
