@@ -122,3 +122,9 @@ python3 simplePCI.py -s [B:D:F] -v | grep -i BAR0
 同樣可以直接取出 **[BAR0] 位址** 供 `simpleNVMe.py` 使用。  
 
 ---
+
+## 📌 待辦清單 (TODO)
+
+1. 實現 **Controller Reset**：切換 `CC.EN` 並檢查 `CSTS.RDY` 狀態  
+2. 實現 **NSSR (NVM Subsystem Reset)**：寫入 `NSSR` 並確認 `NSSRO`  
+3. 實現 **Shutdown 流程**：設定 `CC.SHN`，監控 `CSTS.SHST`  
