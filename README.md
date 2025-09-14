@@ -123,7 +123,7 @@ python3 simplePCI.py -s [B:D:F] -v | grep -i BAR0
 
 ---
 
-## 📌 待辦清單 (TODO)
+## 📌 待辦清單
 
 1. 實現 **Controller Reset**：切換 `CC.EN` 並檢查 `CSTS.RDY` 狀態  
 2. 實現 **NSSR (NVM Subsystem Reset)**：寫入 `NSSR` 並確認 `NSSRO`  
