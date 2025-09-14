@@ -90,7 +90,7 @@ def read_reg(mem, offset, size=8):
 def dump_registers(bar_addr):
     fd = os.open("/dev/mem", os.O_RDONLY | os.O_SYNC)
 
-    # 需要 page-align offset
+    # page-align
     PAGE_SIZE = mmap.PAGESIZE
     aligned_offset = bar_addr & ~(PAGE_SIZE - 1)
     page_diff = bar_addr - aligned_offset
